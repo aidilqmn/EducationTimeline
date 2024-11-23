@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Horizontal Timeline</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .timeline-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      overflow-x: auto;
+      margin: 50px auto;
+      padding: 20px;
+      position: relative;
+    }
+
+    .timeline {
+      display: flex;
+      position: relative;
+      gap: 40px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: #ddd;
+      transform: translateY(-50%);
+      z-index: 0;
+    }
+
+    .event {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      width: 300px;
+      z-index: 1;
+    }
+
+    .event .circle {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: #4caf50;
+      margin-bottom: 10px;
+      position: relative;
+    }
+
+    .event-content {
+      background: #fff;
+      border: 1px solid #ddd;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      border-radius: 8px;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.5s ease-in-out;
+    }
+
+    .event-content h3 {
+      margin: 0 0 10px;
+      color: #4caf50;
+    }
+
+    .event-content p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+
+    /* Animation triggered on scroll */
+    .event-content.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media screen and (max-width: 768px) {
+      .timeline {
+        flex-direction: column;
+        gap: 60px;
+      }
+
+      .timeline::before {
+        width: 4px;
+        height: 100%;
+        left: 50%;
+        top: 0;
+        transform: translateX(-50%);
+      }
+
+      .event {
+        width: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Education Timeline</h1>
+  <div class="timeline-container">
+    <div class="timeline">
+      <!-- Event 1 -->
+      <div class="event">
+        <div class="circle"></div>
+        <div class="event-content">
+          <h3>Bachelor of Computer Science</h3>
+          <p><strong>Mar 2024 - Current</strong></p>
+          <p>Multimedia University, Cyberjaya</p>
+          <p>Grade: Current CGPA: 3.93</p>
+          <p><strong>Activities and Societies:</strong></p>
+          <p>- Secretary, Exhibition Division (Integrity and Leadership Day 2024).</p>
+          <p><strong>Dean’s List Awards:</strong></p>
+          <p>- Trimester March/April 2024</p>
+          <p>- Trimester July/August 2024</p>
+        </div>
+      </div>
+
+      <!-- Event 2 -->
+      <div class="event">
+        <div class="circle"></div>
+        <div class="event-content">
+          <h3>Diploma in Information Technology</h3>
+          <p><strong>Nov 2020 - March 2023</strong></p>
+          <p>Multimedia University, Cyberjaya</p>
+          <p>Grade: 3.97 | MUET: Band 4.0</p>
+          <p><strong>Activities and Societies:</strong></p>
+          <p>- Participant in Shopee Code League 2022</p>
+          <p><strong>Dean’s List Awards:</strong></p>
+          <p>- Trimester 2 2020/2021</p>
+          <p>- Trimester 3 2020/2021</p>
+          <p>- Trimester 1 2021/2022</p>
+          <p>- Trimester 2 2021/2022</p>
+          <p>- Trimester 1 2022/2023</p>
+          <p>- Best Diploma Student in IT (MMU Convocation 2023)</p>
+          <p>- Diploma Book Award Recipient</p>
+        </div>
+      </div>
+
+      <!-- Event 3 -->
+      <div class="event">
+        <div class="circle"></div>
+        <div class="event-content">
+          <h3>High School</h3>
+          <p><strong>Jan 2015 - Dec 2019</strong></p>
+          <p>SMK ALAM MEGAH</p>
+          <p><strong>Activities and Societies:</strong></p>
+          <p>- Third place in the invention competition (2015)</p>
+          <p>- Committee Member, Computer Club (2016)</p>
+          <p>- Best Personal Development Figure (2017)</p>
+          <p>- Vice President, SPBT Club (2018)</p>
+          <p>- President, Kadet Remaja Sekolah (2019)</p>
+          <p>- Secretary, SPBT Club (2019)</p>
+          <p>- Actor for English Drama (2019)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    document.querySelectorAll(".event-content").forEach((el) => {
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
